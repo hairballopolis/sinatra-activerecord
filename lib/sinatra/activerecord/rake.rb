@@ -9,6 +9,12 @@ namespace :db do
       ENV["VERSION"] ? ENV["VERSION"].to_i : nil
     )
   end
+  
+  desc "rollback your DB use STEPS to specify more than 1"
+  task :rollback do
+    steps = ENV['STEPS'] || 1
+    ActiveRecord::Migrator.rollback('db/migrate',steps)
+  end
 
   desc "create an ActiveRecord migration in ./db/migrate"
   task :create_migration do
